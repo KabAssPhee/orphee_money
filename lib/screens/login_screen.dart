@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orphee_money/auth/auth_page.dart';
 import 'package:orphee_money/components/my_button.dart';
 import 'package:orphee_money/components/snackbar.dart';
+import 'package:orphee_money/onBoarding/onboarding_screen.dart';
 import 'package:orphee_money/screens/main_screen_host.dart';
 import 'package:orphee_money/screens/signup_screen.dart';
 
@@ -42,7 +43,8 @@ class _SignupScreenState extends State<LoginScreen> {
       //navigate to the home screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const MainScreenHost(),
+          // builder: (context) => const MainScreenHost(),
+          builder: (context) => MainScreenHost(),
         ),
       );
     } else {
@@ -70,28 +72,38 @@ class _SignupScreenState extends State<LoginScreen> {
                 height: height / 2.7,
                 child: Image.asset('assets/images/login.jpg'),
               ),
+              SizedBox(
+                height: 35,
+              ),
+              Text(
+                'Bienvenue',
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
               TextFieldInput(
                   icon: Icons.person,
                   textEditingController: emailController,
-                  hintText: 'Enter your email',
+                  hintText: 'Votre Mail',
                   textInputType: TextInputType.text),
               TextFieldInput(
                 icon: Icons.lock,
                 textEditingController: passwordController,
-                hintText: 'Enter your passord',
+                hintText: 'Votre mot de passe',
                 textInputType: TextInputType.text,
                 isPass: true,
               ),
               //  we call our forgot password below the login in button
               //const ForgotPassword(),
-              MyButtons(onTap: loginUser, text: "Log In"),
-          
+              MyButtons(onTap: loginUser, text: "Connexion"),
+
               Row(
                 children: [
                   Expanded(
                     child: Container(height: 1, color: Colors.black26),
                   ),
-                  const Text("  or  "),
+                  const Text("  ou  "),
                   Expanded(
                     child: Container(height: 1, color: Colors.black26),
                   )
@@ -134,15 +146,15 @@ class _SignupScreenState extends State<LoginScreen> {
               //     ),
               //   ),
               // ),
-             // for phone authentication 
-             //const PhoneAuthentication(),
+              // for phone authentication
+              //const PhoneAuthentication(),
               // Don't have an account? got to signup screen
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 100),
+                padding: const EdgeInsets.only(top: 10, left: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account? "),
+                    const Text("N'avez vous pas de compte ? "),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
@@ -152,7 +164,7 @@ class _SignupScreenState extends State<LoginScreen> {
                         );
                       },
                       child: const Text(
-                        "SignUp",
+                        "Inscrivez vous",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     )

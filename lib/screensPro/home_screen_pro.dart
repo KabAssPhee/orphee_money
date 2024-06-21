@@ -1,19 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orphee_money/data/userInfo.dart';
-import 'package:orphee_money/widget/income_expense_card.dart';
-import 'package:orphee_money/widget/transaction_item_tile.dart';
+import 'package:orphee_money/widgetPro/income_expense_pro.dart';
+import 'package:orphee_money/widgetPro/transaction_item_pro.dart';
 
 import '../utils/constants.dart';
 
-class HomeScreenTab extends StatefulWidget {
-  const HomeScreenTab({super.key});
+class HomeScreenTabPro extends StatefulWidget {
+  const HomeScreenTabPro({super.key});
 
   @override
-  State<HomeScreenTab> createState() => _HomeScreenTabState();
+  State<HomeScreenTabPro> createState() => _HomeScreenTabProState();
 }
 
-class _HomeScreenTabState extends State<HomeScreenTab> {
+class _HomeScreenTabProState extends State<HomeScreenTabPro> {
   String userEmail = '';
 
   @override
@@ -86,17 +86,17 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                      child: IncomeExpenseCard(
-                    expenseData: ExpenseData("Revenu", "${userdata.inflow}",
+                      child: IncomeExpenseCardPro(
+                    expenseData: ExpenseDataPro("Revenu", "${userdata.inflow}",
                         Icons.arrow_upward_rounded),
                   )),
                   SizedBox(
                     width: defaultSpacing,
                   ),
                   Expanded(
-                      child: IncomeExpenseCard(
-                    expenseData: ExpenseData("Dépenses", "-${userdata.outflow}",
-                        Icons.arrow_downward_rounded),
+                      child: IncomeExpenseCardPro(
+                    expenseData: ExpenseDataPro("Dépenses",
+                        "-${userdata.outflow}", Icons.arrow_downward_rounded),
                   )),
                 ],
               ),
@@ -118,7 +118,7 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
                 style: TextStyle(color: fontSubHeading),
               ),
               ...userdata.transactions.map((transaction) =>
-                  TransactionItemTile(transaction: transaction)),
+                  TransactionItemTilePro(transaction: transaction)),
               const SizedBox(
                 height: defaultSpacing,
               ),
@@ -127,7 +127,7 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
                 style: TextStyle(color: fontSubHeading),
               ),
               ...transactions2.map((transaction) =>
-                  TransactionItemTile(transaction: transaction)),
+                  TransactionItemTilePro(transaction: transaction)),
             ],
           ),
         ),

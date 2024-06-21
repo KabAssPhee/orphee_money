@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:orphee_money/onBoarding/onboarding_screen.dart';
 import 'package:orphee_money/screens/login_screen.dart';
 import 'package:orphee_money/screens/main_screen_host.dart';
 
@@ -21,9 +22,10 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const LoginScreen();
+            // return const MainScreenHost();
+            return MainScreenHost();
           } else {
-            return const MainScreenHost();
+            return const LoginScreen();
           }
         },
       ),

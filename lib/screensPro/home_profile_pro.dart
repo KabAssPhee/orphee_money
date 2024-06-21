@@ -1,19 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orphee_money/screens/login_screen.dart';
-import 'package:orphee_money/screensPro/main_screen_pro.dart';
-import 'package:orphee_money/widget/profile_account_info_tile.dart';
-
+import 'package:orphee_money/screens/main_screen_host.dart';
+import 'package:orphee_money/widgetPro/profile_account_pro.dart';
 import '../utils/constants.dart';
 
-class HomeProfileTab extends StatefulWidget {
-  const HomeProfileTab({super.key});
+class HomeProfileTabPro extends StatefulWidget {
+  const HomeProfileTabPro({super.key});
 
   @override
-  State<HomeProfileTab> createState() => _HomeProfileTabState();
+  State<HomeProfileTabPro> createState() => _HomeProfileTabProState();
 }
 
-class _HomeProfileTabState extends State<HomeProfileTab> {
+class _HomeProfileTabProState extends State<HomeProfileTabPro> {
   String userEmail = '';
 
   @override
@@ -116,11 +115,11 @@ class _HomeProfileTabState extends State<HomeProfileTab> {
                         const SizedBox(
                           height: defaultSpacing,
                         ),
-                        const GeneralAccountInfoTile(
+                        const GeneralAccountInfoTilePro(
                             title: "Angré 22ème",
                             subTitle: "Rue, I42 Abidjan",
                             imageUrl: "assets/icons/location-1.png"),
-                        const GeneralAccountInfoTile(
+                        const GeneralAccountInfoTilePro(
                             title: "Mon portefeuille",
                             subTitle: "Gérer votre portefeuille sauvegardé",
                             imageUrl: "assets/icons/wallet.png"),
@@ -142,28 +141,28 @@ class _HomeProfileTabState extends State<HomeProfileTab> {
                         const SizedBox(
                           height: defaultSpacing,
                         ),
-                        const ProfileAccountInfoTile(
+                        const ProfileAccountInfoTilePro(
                           iconUrl: "assets/icons/user-1.png",
                           heading: "Mon Compte",
                         ),
                         const SizedBox(
                           height: defaultSpacing,
                         ),
-                        const ProfileAccountInfoTile(
+                        const ProfileAccountInfoTilePro(
                           iconUrl: "assets/icons/bell.png",
                           heading: "Notifications",
                         ),
                         const SizedBox(
                           height: defaultSpacing,
                         ),
-                        const ProfileAccountInfoTile(
+                        const ProfileAccountInfoTilePro(
                           iconUrl: "assets/icons/lock-on.png",
                           heading: "Confidentialité",
                         ),
                         const SizedBox(
                           height: defaultSpacing,
                         ),
-                        const ProfileAccountInfoTile(
+                        const ProfileAccountInfoTilePro(
                           iconUrl: "assets/icons/info-circle.png",
                           heading: "À Propos",
                         ),
@@ -186,9 +185,9 @@ class _HomeProfileTabState extends State<HomeProfileTab> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const MainScreenHostPro()));
+                                                const MainScreenHost()));
                                   },
-                                  child: Text("Compte Pro",
+                                  child: Text("Compte Standard",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium
