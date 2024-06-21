@@ -1,8 +1,8 @@
 import 'package:bezier_chart_plus/bezier_chart_plus.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:phixlab_money/widget/custom_selector.dart';
-import 'package:phixlab_money/widget/transaction_item_tile.dart';
+import 'package:orphee_money/widget/custom_selector.dart';
+import 'package:orphee_money/widget/transaction_item_tile.dart';
+
 
 import '../data/userInfo.dart';
 import '../utils/constants.dart';
@@ -100,7 +100,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                           );
                         }),
                         const SizedBox(width: 24),
-                        const Icon(Icons.calendar_month)
+                        Flexible(child: const Icon(Icons.calendar_month))
                       ],
                     ),
                   ],

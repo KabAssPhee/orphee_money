@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "220205025404",
+    "project_id": "orphee-money",
+    "storage_bucket": "orphee-money.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220205025404:android:f5e4ea779294df964721f9",
+        "android_client_info": {
+          "package_name": "com.orphee.money"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQG8R2jIdP-QHsjUr1Ogo43G8Zfj_WH6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

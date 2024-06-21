@@ -1,5 +1,4 @@
-package com.phixlab.money.phixlab_money
-
+package com.orphee.money
 import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity: FlutterActivity() {

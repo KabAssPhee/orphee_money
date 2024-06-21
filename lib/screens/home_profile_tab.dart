@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:phixlab_money/widget/profile_account_info_tile.dart';
+import 'package:orphee_money/widget/profile_account_info_tile.dart';
+
 
 import '../utils/constants.dart';
 
@@ -31,37 +32,39 @@ class HomeProfileTab extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Center(
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(defaultRadius)),
-                        child: Image.asset(
-                          "assets/images/avatar.jpeg",
-                          width: 100,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(defaultRadius)),
+                          child: Image.asset(
+                            "assets/images/avatar.jpeg",
+                            width: 100,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Orphée Kablan",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: fontHeading),
-                      ),
-                      Text(
-                        "orpheekablan@gmail.com",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: fontSubHeading),
-                      ),
-                      const Chip(
-                        backgroundColor: primaryLight,
-                        label: Text("Modifier Profile"),
-                      )
-                    ],
+                        Text(
+                          "Orphée Kablan",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: fontHeading),
+                        ),
+                        Text(
+                          "orpheekablan@gmail.com",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: fontSubHeading),
+                        ),
+                        const Chip(
+                          backgroundColor: primaryLight,
+                          label: Text("Modifier Profile"),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

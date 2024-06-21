@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.phixlab.money.phixlab_money">
+    package="com.orphee.money">
    <application
-        android:label="phixlab_money"
+        android:label="orphee_money"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

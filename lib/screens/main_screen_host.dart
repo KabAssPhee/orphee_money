@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:phixlab_money/screens/expense_screen.dart';
-import 'package:phixlab_money/screens/home_profile_tab.dart';
-import 'package:phixlab_money/screens/home_screen_tab.dart';
-import 'package:phixlab_money/utils/constants.dart';
+import 'package:orphee_money/screens/expense_screen.dart';
+import 'package:orphee_money/screens/home_profile_tab.dart';
+import 'package:orphee_money/screens/home_screen_tab.dart';
+import 'package:orphee_money/utils/constants.dart';
+
 
 class MainScreenHost extends StatefulWidget {
   const MainScreenHost({super.key});
