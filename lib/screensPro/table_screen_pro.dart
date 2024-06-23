@@ -29,7 +29,7 @@ class _BudgetTableProState extends State<BudgetTablePro> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -63,44 +63,62 @@ class _BudgetTableProState extends State<BudgetTablePro> {
               }),
             ),
             SizedBox(height: 16),
-            _buildSectionTitle('Revenus'),
+            _buildSectionTitle('Charges d\'exploitation - Fournisseurs'),
             _buildTable(
-              headers: ['Nom', 'Montant XOF', 'Fréquence'],
+              headers: ['Nom', 'Produits fournis', 'Prix XOF'],
               rows: [
-                ['Salaire', '500.000', 'Mois'],
-                ['Vente de savon', '150.000', 'Mois'],
-                ['Revenu TikTok', '15.000', 'Semaines'],
+                ['Mme Diop', 'Savon', '300.000'],
+                ['M. Kablan', 'Emballage', '30.000'],
               ],
             ),
             SizedBox(height: 16),
-            _buildSectionTitle('Dépenses - charges fixes'),
+            _buildSectionTitle('Charges d\'exploitation - Produits en Vente'),
             _buildTable(
-              headers: ['Nom', 'Montant', 'Fréquence', 'Revenu'],
+              headers: [
+                'Produit',
+                'Quantités en stock',
+                'Prix d\'achat',
+                'Prix de vente',
+                'Bénéfice Attendu'
+              ],
               rows: [
-                ['Loyer', '150.000', 'Mois', 'Salaire'],
-                ['Facture CIE', '', '', ''],
-                ['Facture SODECI', '', '', ''],
-                ['Scolarité enfants', '', '', ''],
+                ['Savon Teint Clair', '30', '', '15.000', '150.000'],
+                ['Savon Teint Métisse', '12', '', '35.000', '120.000'],
               ],
             ),
             SizedBox(height: 16),
-            _buildSectionTitle('Dépenses - charges variables'),
+            _buildSectionTitle('Recettes - Ventes en une fois'),
             _buildTable(
-              headers: ['Nom', 'Montant'],
+              headers: ['Nom du Produit', 'Réduction', 'Prix final', 'Date'],
               rows: [
-                ['Shopping', ''],
-                ['Resto', ''],
-                ['Imprévus', ''],
-                ['Maladie', ''],
-                ['Voyage', ''],
+                ['Savon Teint Clair', '10%', '13.500', '05-06-2024'],
+                ['Savon Teint Métisse', '10%', '31.500', '06-06-2024'],
               ],
             ),
-            _buildSectionTitle('Épargne'),
+            SizedBox(height: 16),
+            _buildSectionTitle('Recettes - Ventes en plusieurs fois'),
             _buildTable(
-              headers: ['Montant'],
+              headers: [
+                'Nom du Produit',
+                'Nom du client',
+                'Avance',
+                'Date',
+                'Soldé'
+              ],
               rows: [
                 [
+                  'Savon Teint Métisse',
+                  'Mlle. Marie-Paul Nassa',
+                  '20.000',
                   '',
+                  'Non'
+                ],
+                [
+                  'Savon Teint Métisse',
+                  'Mlle. Ezékiel Astride',
+                  '12.000',
+                  '',
+                  'Non'
                 ],
               ],
             ),
