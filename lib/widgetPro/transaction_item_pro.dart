@@ -1,22 +1,21 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:orphee_money/data/user_info_pro.dart';
 import 'package:orphee_money/utils/constants.dart';
 
-import '../data/userInfo.dart';
-
 class TransactionItemTilePro extends StatelessWidget {
-  final Transaction transaction;
+  final TransactionPro transactionpro;
 
-  const TransactionItemTilePro({super.key, required this.transaction});
+  const TransactionItemTilePro({super.key, required this.transactionpro});
 
   @override
   Widget build(BuildContext context) {
-    String getSign(TransactionType type) {
+    String getSign(TransactionTypePro type) {
       switch (type) {
-        case TransactionType.inflow:
+        case TransactionTypePro.inflow:
           return "+";
-        case TransactionType.outflow:
+        case TransactionTypePro.outflow:
           return "-";
       }
     }
@@ -44,17 +43,17 @@ class TransactionItemTilePro extends StatelessWidget {
                 color: getRandomBgColor(),
                 borderRadius:
                     const BorderRadius.all(Radius.circular(defaultRadius / 2))),
-            child: transaction.categoryType == ItemCategoryType.fashion
+            child: transactionpro.categoryTypePro == ItemCategoryTypePro.fashion
                 ? const Icon(Icons.supervised_user_circle_sharp)
                 : Icon(Icons.house)),
         title: Text(
-          transaction.itemCategoryName,
+          transactionpro.itemCategoryNamePro,
           style: Theme.of(context)
               .textTheme
               .bodyLarge
               ?.copyWith(color: fontHeading, fontSize: fontSizeTitle),
         ),
-        subtitle: Text(transaction.itemName,
+        subtitle: Text(transactionpro.itemNamePro,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: fontSubHeading,
                 fontSize: fontSizeBody,
@@ -64,15 +63,16 @@ class TransactionItemTilePro extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              "${getSign(transaction.transactionType)}${transaction.amount}",
+              "${getSign(transactionpro.transactionTypePro)}${transactionpro.amountPro}",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: transaction.transactionType == TransactionType.outflow
+                  color: transactionpro.transactionTypePro ==
+                          TransactionTypePro.outflow
                       ? Colors.red
                       : fontHeading,
                   fontSize: fontSizeBody),
             ),
             Text(
-              transaction.date,
+              transactionpro.datePro,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: fontSubHeading,
                     fontSize: fontSizeBody,

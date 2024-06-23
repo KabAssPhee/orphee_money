@@ -37,48 +37,69 @@ class Transaction {
 
 const List<Transaction> transactions1 = [
   Transaction(
-      categoryType: ItemCategoryType.fashion,
-      transactionType: TransactionType.outflow,
-      itemCategoryName: 'Imprévus',
-      itemName: "Aléatoire",
-      amount: "25000 XOF",
+      categoryType: ItemCategoryType.payments,
+      transactionType: TransactionType.inflow,
+      itemCategoryName: 'Salaire',
+      itemName: "de SOCIETE",
+      amount: "500.000 XOF",
       date: "23, Mars"),
-  Transaction(
-      categoryType: ItemCategoryType.fashion,
-      transactionType: TransactionType.outflow,
-      itemCategoryName: 'Shopping',
-      itemName: "Magazin",
-      amount: "35000 XOF",
-      date: "24, Avril"),
-];
-
-const List<Transaction> transactions2 = [
   Transaction(
       categoryType: ItemCategoryType.payments,
       transactionType: TransactionType.outflow,
       itemCategoryName: 'Loyer',
-      itemName: "Transfer à mapau",
-      amount: "15000 XOF",
-      date: "5, Juin"),
+      itemName: "Transfert au propriétaire",
+      amount: "150.000 XOF",
+      date: "23, Mars"),
+  // Transaction(
+  //     categoryType: ItemCategoryType.fashion,
+  //     transactionType: TransactionType.outflow,
+  //     itemCategoryName: 'Shopping',
+  //     itemName: "Magazin",
+  //     amount: "35000 XOF",
+  //     date: "24, Avril"),
   Transaction(
-      categoryType: ItemCategoryType.fashion,
+      categoryType: ItemCategoryType.payments,
       transactionType: TransactionType.outflow,
       itemCategoryName: 'Imprévus',
       itemName: "Aléatoire",
-      amount: "40000 XOF",
-      date: "7, Juin"),
+      amount: "35.000 XOF",
+      date: "4, Juin"),
+];
+
+const List<Transaction> transactions2 = [
+  // Transaction(
+  //     categoryType: ItemCategoryType.payments,
+  //     transactionType: TransactionType.outflow,
+  //     itemCategoryName: 'Loyer',
+  //     itemName: "Transfer au ",
+  //     amount: "15000 XOF",
+  //     date: "5, Juin"),
   Transaction(
-      categoryType: ItemCategoryType.fashion,
+      categoryType: ItemCategoryType.payments,
       transactionType: TransactionType.outflow,
-      itemCategoryName: 'Imprévus',
-      itemName: "Aléatoire",
-      amount: "50000 XOF",
-      date: "8, Juin"),
+      itemCategoryName: 'Facture Sodeci',
+      itemName: "Transfert à la sodeci",
+      amount: "10.000 XOF",
+      date: "22, Juin"),
+  Transaction(
+      categoryType: ItemCategoryType.payments,
+      transactionType: TransactionType.outflow,
+      itemCategoryName: 'Shopping',
+      itemName: "Magazin",
+      amount: "20.000 XOF",
+      date: "25, Juin"),
+  Transaction(
+      categoryType: ItemCategoryType.payments,
+      transactionType: TransactionType.outflow,
+      itemCategoryName: 'Voyage',
+      itemName: "Extérieur",
+      amount: "60.000 XOF",
+      date: "26, Juin"),
 ];
 
 const userdata = UserInfo(
     name: "Orphée",
-    totalBalance: "500.000 XOF",
-    inflow: "300.000 XOF",
-    outflow: "200.000 XOF",
+    totalBalance: "225.000 XOF",
+    inflow: "560.000 XOF",
+    outflow: "275.000 XOF",
     transactions: transactions1);

@@ -15,7 +15,7 @@ class _BudgetTableProState extends State<BudgetTablePro> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Planification de Budget',
+          'Charges d\'exploitations',
           style: TextStyle(color: fontDarker),
         ),
         actions: const [
@@ -65,10 +65,10 @@ class _BudgetTableProState extends State<BudgetTablePro> {
             SizedBox(height: 16),
             _buildSectionTitle('Charges d\'exploitation - Fournisseurs'),
             _buildTable(
-              headers: ['Nom', 'Produits fournis', 'Prix XOF'],
+              headers: ['Nom', 'Produits fournis', 'Date', 'Prix XOF'],
               rows: [
-                ['Mme Diop', 'Savon', '300.000'],
-                ['M. Kablan', 'Emballage', '30.000'],
+                ['Mme Diop', 'Savon', '23-06-24', '300.000'],
+                ['M. Kablan', 'Emballage', '23-06-24', '30.000'],
               ],
             ),
             SizedBox(height: 16),
@@ -110,14 +110,14 @@ class _BudgetTableProState extends State<BudgetTablePro> {
                   'Savon Teint Métisse',
                   'Mlle. Marie-Paul Nassa',
                   '20.000',
-                  '',
+                  '15-06-24',
                   'Non'
                 ],
                 [
                   'Savon Teint Métisse',
                   'Mlle. Ezékiel Astride',
                   '12.000',
-                  '',
+                  '23-06-24',
                   'Non'
                 ],
               ],

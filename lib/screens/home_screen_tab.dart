@@ -47,7 +47,8 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
               ),
               Material(
                 child: ListTile(
-                  title: Text("Salut!\n${userEmail}"),
+                  title: Text(
+                      "Salut!\n${userEmail}, bienvenue sur votre compte personnel"),
                   leading: ClipRRect(
                       borderRadius: const BorderRadius.all(
                           Radius.circular(defaultRadius)),

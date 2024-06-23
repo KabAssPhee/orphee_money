@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:orphee_money/data/userInfo.dart';
+import 'package:orphee_money/data/user_info_pro.dart';
 import 'package:orphee_money/widgetPro/income_expense_pro.dart';
 import 'package:orphee_money/widgetPro/transaction_item_pro.dart';
 
@@ -46,7 +46,8 @@ class _HomeScreenTabProState extends State<HomeScreenTabPro> {
               ),
               Material(
                 child: ListTile(
-                  title: Text("Salut!\n${userEmail}"),
+                  title: Text(
+                      "Salut!\n${userEmail}, bienvenue sur votre compte profesionnel"),
                   leading: ClipRRect(
                       borderRadius: const BorderRadius.all(
                           Radius.circular(defaultRadius)),
@@ -61,7 +62,7 @@ class _HomeScreenTabProState extends State<HomeScreenTabPro> {
                 child: Column(
                   children: [
                     Text(
-                      "${userdata.totalBalance}",
+                      "${userdatapro.totalBalance}",
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: fontSizeHeading,
                           fontWeight: FontWeight.w800),
@@ -87,16 +88,18 @@ class _HomeScreenTabProState extends State<HomeScreenTabPro> {
                 children: [
                   Expanded(
                       child: IncomeExpenseCardPro(
-                    expenseData: ExpenseDataPro("Revenu", "${userdata.inflow}",
-                        Icons.arrow_upward_rounded),
+                    expenseData: ExpenseDataPro("Revenu",
+                        "${userdatapro.inflow}", Icons.arrow_upward_rounded),
                   )),
                   SizedBox(
                     width: defaultSpacing,
                   ),
                   Expanded(
                       child: IncomeExpenseCardPro(
-                    expenseData: ExpenseDataPro("Dépenses",
-                        "-${userdata.outflow}", Icons.arrow_downward_rounded),
+                    expenseData: ExpenseDataPro(
+                        "Dépenses",
+                        "-${userdatapro.outflow}",
+                        Icons.arrow_downward_rounded),
                   )),
                 ],
               ),
@@ -107,7 +110,7 @@ class _HomeScreenTabProState extends State<HomeScreenTabPro> {
                 "Transactions récentes",
                 style: Theme.of(context)
                     .textTheme
-                    .headlineLarge
+                    .bodyLarge
                     ?.copyWith(fontWeight: FontWeight.w700),
               ),
               const SizedBox(
@@ -117,8 +120,8 @@ class _HomeScreenTabProState extends State<HomeScreenTabPro> {
                 "Aujourd'hui",
                 style: TextStyle(color: fontSubHeading),
               ),
-              ...userdata.transactions.map((transaction) =>
-                  TransactionItemTilePro(transaction: transaction)),
+              ...userdatapro.transactions.map((transaction) =>
+                  TransactionItemTilePro(transactionpro: transaction)),
               const SizedBox(
                 height: defaultSpacing,
               ),
@@ -126,8 +129,8 @@ class _HomeScreenTabProState extends State<HomeScreenTabPro> {
                 "Hier",
                 style: TextStyle(color: fontSubHeading),
               ),
-              ...transactions2.map((transaction) =>
-                  TransactionItemTilePro(transaction: transaction)),
+              ...transactionsPro2.map((transaction) =>
+                  TransactionItemTilePro(transactionpro: transaction)),
             ],
           ),
         ),

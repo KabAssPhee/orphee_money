@@ -1,5 +1,6 @@
 import 'package:bezier_chart_plus/bezier_chart_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:orphee_money/data/user_info_pro.dart';
 import 'package:orphee_money/widgetPro/custom_selector_pro.dart';
 import 'package:orphee_money/widgetPro/transaction_item_pro.dart';
 
@@ -18,8 +19,8 @@ class _ExpenseScreenProState extends State<ExpenseScreenPro> {
   int _selectedCatIndex = 0;
   final selectorLabels = ['Jours', 'Semaines', 'Mois'];
   List<String>? _transactionsCategories;
-  List<Transaction> transactions = [];
-  List<Transaction> filteredTransactions = [];
+  List<TransactionPro> transactions = [];
+  List<TransactionPro> filteredTransactions = [];
 
   _getActiveTimeFrame(int index) {
     switch (index) {
@@ -39,7 +40,7 @@ class _ExpenseScreenProState extends State<ExpenseScreenPro> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      transactions = [...transactions1, ...transactions2];
+      transactions = [...transactionsPro1, ...transactionsPro2];
       getTransactionCategories();
     });
     super.initState();
@@ -49,14 +50,15 @@ class _ExpenseScreenProState extends State<ExpenseScreenPro> {
     setState(() {
       filteredTransactions.addAll(transactions);
       _transactionsCategories =
-          transactions.map((tran) => tran.itemCategoryName).toSet().toList();
+          transactions.map((tran) => tran.itemCategoryNamePro).toSet().toList();
     });
   }
 
   updateTransactionCategory(String item) {
     setState(() {
-      filteredTransactions =
-          transactions.where((tran) => tran.itemCategoryName == item).toList();
+      filteredTransactions = transactions
+          .where((tran) => tran.itemCategoryNamePro == item)
+          .toList();
     });
   }
 
@@ -109,40 +111,60 @@ class _ExpenseScreenProState extends State<ExpenseScreenPro> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Transactions détaillées',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: fontDarker, fontWeight: FontWeight.w600),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Dépenses',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: fontDarker,
+                                  fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'Revenus',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: fontDarker,
+                                  fontWeight: FontWeight.w600),
+                        ),
+                      ]),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      ...?_transactionsCategories?.map((tran) {
+                        int index = _transactionsCategories!.indexOf(tran);
+                        return CustomSelectorPro(
+                          height: 45,
+                          onTap: () {
+                            filteredTransactions.clear();
+                            updateTransactionCategory(tran);
+                            setState(() {
+                              _selectedCatIndex = index;
+                            });
+                          },
+                          isSelected: _selectedCatIndex ==
+                              _transactionsCategories?.indexOf(tran),
+                          label: tran,
+                        );
+                      })
+                    ],
                   ),
                 ),
                 const SizedBox(
                   height: 24,
                 ),
-                Row(
-                  children: [
-                    ...?_transactionsCategories?.map((tran) {
-                      int index = _transactionsCategories!.indexOf(tran);
-                      return CustomSelectorPro(
-                        height: 45,
-                        onTap: () {
-                          filteredTransactions.clear();
-                          updateTransactionCategory(tran);
-                          setState(() {
-                            _selectedCatIndex = index;
-                          });
-                        },
-                        isSelected: _selectedCatIndex ==
-                            _transactionsCategories?.indexOf(tran),
-                        label: tran,
-                      );
-                    })
-                  ],
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
                 ...filteredTransactions
-                    .map((tran) => TransactionItemTilePro(transaction: tran))
+                    .map((tran) => TransactionItemTilePro(transactionpro: tran))
               ],
             ),
           ),

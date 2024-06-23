@@ -141,22 +141,33 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 ),
                 Row(
                   children: [
-                    ...?_transactionsCategories?.map((tran) {
-                      int index = _transactionsCategories!.indexOf(tran);
-                      return CustomSelector(
-                        height: 45,
-                        onTap: () {
-                          filteredTransactions.clear();
-                          updateTransactionCategory(tran);
-                          setState(() {
-                            _selectedCatIndex = index;
-                          });
-                        },
-                        isSelected: _selectedCatIndex ==
-                            _transactionsCategories?.indexOf(tran),
-                        label: tran,
-                      );
-                    })
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ..._transactionsCategories?.map((tran) {
+                                  int index =
+                                      _transactionsCategories!.indexOf(tran);
+                                  return CustomSelector(
+                                    height: 45,
+                                    onTap: () {
+                                      filteredTransactions.clear();
+                                      updateTransactionCategory(tran);
+                                      setState(() {
+                                        _selectedCatIndex = index;
+                                      });
+                                    },
+                                    isSelected: _selectedCatIndex ==
+                                        _transactionsCategories?.indexOf(tran),
+                                    label: tran,
+                                  );
+                                }).toList() ??
+                                [],
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
