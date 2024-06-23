@@ -65,7 +65,7 @@ class _ExpenseScreenProState extends State<ExpenseScreenPro> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Dépenses',
+          'Mes Transactions',
           style: TextStyle(color: fontDarker),
         ),
         centerTitle: true,

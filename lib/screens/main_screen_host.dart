@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:orphee_money/screens/expense_screen.dart';
 import 'package:orphee_money/screens/home_profile_tab.dart';
 import 'package:orphee_money/screens/home_screen_tab.dart';
+import 'package:orphee_money/screens/table_screen.dart';
 import 'package:orphee_money/utils/constants.dart';
-
 
 class MainScreenHost extends StatefulWidget {
   const MainScreenHost({super.key});
@@ -22,7 +22,7 @@ class _MainScreenHostState extends State<MainScreenHost> {
       case 1:
         return ExpenseScreen();
       case 2:
-        return Container();
+        return BudgetTable();
       case 3:
         return const HomeProfileTab();
       default:
@@ -45,12 +45,12 @@ class _MainScreenHostState extends State<MainScreenHost> {
         unselectedItemColor: fontLight,
         items: [
           BottomNavigationBarItem(
-              icon: Image.asset("assets/icons/home-1.png"), label: "Home"),
+              icon: Image.asset("assets/icons/home-1.png"), label: "Accueil"),
           BottomNavigationBarItem(
               icon: Image.asset("assets/icons/chart-vertical.png"),
-              label: "Stat"),
+              label: "Transaction"),
           BottomNavigationBarItem(
-              icon: Image.asset("assets/icons/wallet.png"), label: "Wallet"),
+              icon: Image.asset("assets/icons/wallet.png"), label: "Budget"),
           BottomNavigationBarItem(
               icon: Image.asset("assets/icons/user-1.png"), label: "Profile")
         ],

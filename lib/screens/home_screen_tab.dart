@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:orphee_money/data/userInfo.dart';
+import 'package:orphee_money/screens/expense_screen.dart';
 import 'package:orphee_money/widget/income_expense_card.dart';
 import 'package:orphee_money/widget/transaction_item_tile.dart';
 
@@ -103,13 +104,28 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
               const SizedBox(
                 height: defaultSpacing * 2,
               ),
-              Text(
-                "Transactions récentes",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge
-                    ?.copyWith(fontWeight: FontWeight.w700),
-              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Text(
+                  "Transactions récentes",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontWeight: FontWeight.w700),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ExpenseScreen()));
+                  },
+                  child: Text(
+                    'Tout afficher',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: fontDarker, fontWeight: FontWeight.w600),
+                  ),
+                )
+              ]),
               const SizedBox(
                 height: defaultSpacing,
               ),

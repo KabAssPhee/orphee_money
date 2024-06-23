@@ -39,15 +39,15 @@ const List<Transaction> transactions1 = [
   Transaction(
       categoryType: ItemCategoryType.fashion,
       transactionType: TransactionType.outflow,
-      itemCategoryName: 'Chaussure',
-      itemName: "Puma Sneaker",
+      itemCategoryName: 'Imprévus',
+      itemName: "Aléatoire",
       amount: "25000 XOF",
       date: "23, Mars"),
   Transaction(
       categoryType: ItemCategoryType.fashion,
       transactionType: TransactionType.outflow,
-      itemCategoryName: 'Sac',
-      itemName: "Gucci Flex",
+      itemCategoryName: 'Shopping',
+      itemName: "Magazin",
       amount: "35000 XOF",
       date: "24, Avril"),
 ];
@@ -56,22 +56,22 @@ const List<Transaction> transactions2 = [
   Transaction(
       categoryType: ItemCategoryType.payments,
       transactionType: TransactionType.outflow,
-      itemCategoryName: 'Paiment',
+      itemCategoryName: 'Loyer',
       itemName: "Transfer à mapau",
       amount: "15000 XOF",
       date: "5, Juin"),
   Transaction(
       categoryType: ItemCategoryType.fashion,
       transactionType: TransactionType.outflow,
-      itemCategoryName: 'Chaussure',
-      itemName: "Gucci Loafer",
+      itemCategoryName: 'Imprévus',
+      itemName: "Aléatoire",
       amount: "40000 XOF",
       date: "7, Juin"),
   Transaction(
       categoryType: ItemCategoryType.fashion,
       transactionType: TransactionType.outflow,
-      itemCategoryName: 'Chaussure',
-      itemName: "Gucci Oxford",
+      itemCategoryName: 'Imprévus',
+      itemName: "Aléatoire",
       amount: "50000 XOF",
       date: "8, Juin"),
 ];

@@ -187,7 +187,7 @@ class _HomeProfileTabProState extends State<HomeProfileTabPro> {
                                             builder: (context) =>
                                                 const MainScreenHost()));
                                   },
-                                  child: Text("Compte Standard",
+                                  child: Text("Compte Personnel",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium

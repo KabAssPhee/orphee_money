@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:orphee_money/widget/custom_selector.dart';
 import 'package:orphee_money/widget/transaction_item_tile.dart';
 
-
 import '../data/userInfo.dart';
 import '../utils/constants.dart';
 
@@ -25,13 +24,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   _getActiveTimeFrame(int index) {
     switch (index) {
       case 0:
-      case 1:
         return Center(
             child: Container(
           width: double.infinity,
           height: 300,
           child: Center(child: Text('Pas encore de données')),
         ));
+      case 1:
+        return ExpenseChartWidgetSemaines();
       case 2:
         return ExpenseChartWidget();
     }
@@ -66,8 +66,11 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Dépenses',
-          style: TextStyle(color: fontDarker),
+          'Mes Transactions',
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: fontDarker),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -110,11 +113,28 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Transactions détaillées',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: fontDarker, fontWeight: FontWeight.w600),
-                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Dépenses',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  color: fontDarker,
+                                  fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'Revenus',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                  color: fontDarker,
+                                  fontWeight: FontWeight.w600),
+                        ),
+                      ]),
                 ),
                 const SizedBox(
                   height: 24,
@@ -194,6 +214,55 @@ class ExpenseChartWidget extends StatelessWidget {
                 DataPoint<DateTime>(value: 80, xAxis: date4),
                 DataPoint<DateTime>(value: 14, xAxis: date5),
                 DataPoint<DateTime>(value: 30, xAxis: date6),
+              ],
+            ),
+          ],
+          config: BezierChartConfig(
+            verticalIndicatorStrokeWidth: 1.0,
+            verticalIndicatorColor: Colors.blueGrey,
+            showVerticalIndicator: true,
+            verticalIndicatorFixedPosition: false,
+            xAxisTextStyle: TextStyle(color: fontDarker, fontSize: 10),
+            updatePositionOnTap: true,
+            footerHeight: 35.0,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ExpenseChartWidgetSemaines extends StatelessWidget {
+  final fromDate = DateTime(2024, 05, 22);
+  final toDate = DateTime.now();
+
+  final date1 = DateTime.now().subtract(Duration(days: 2));
+  final date2 = DateTime.now().subtract(Duration(days: 3));
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: MediaQuery.of(context).size.height / 3,
+        width: MediaQuery.of(context).size.width,
+        child: BezierChart(
+          bezierChartScale: BezierChartScale.weekly,
+          fromDate: fromDate,
+          toDate: toDate,
+          selectedDate: toDate,
+          series: [
+            BezierLine(
+              lineColor: Colors.red,
+              label: "Dépenses",
+              onMissingValue: (dateTime) {
+                if (dateTime.month.isEven) {
+                  return 10.0;
+                }
+                return 5.0;
+              },
+              data: [
+                DataPoint<DateTime>(value: 10, xAxis: date1),
+                DataPoint<DateTime>(value: 50, xAxis: date2),
               ],
             ),
           ],
