@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:orphee_money/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BudgetTablePro extends StatefulWidget {
   @override
@@ -10,6 +13,100 @@ class _BudgetTableProState extends State<BudgetTablePro> {
   int _selectedIndex = 0;
 
   final List<String> _months = ['Juin', 'Juillet', 'Août', 'Septembre'];
+
+  //DATA TABLE
+  List<List<TextEditingController>> fixedExpensesControllers = [];
+  List<List<TextEditingController>> variableExpensesControllers = [];
+  List<List<TextEditingController>> savingsControllers = [];
+  List<List<TextEditingController>> supplierExpensesControllers = [];
+  // List<List<TextEditingController>> salesExpensesControllers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      fixedExpensesControllers = _loadControllers(prefs, 'fixedExpenses', 4);
+      variableExpensesControllers =
+          _loadControllers(prefs, 'variableExpenses', 5);
+      savingsControllers = _loadControllers(prefs, 'savings', 4);
+      supplierExpensesControllers =
+          _loadControllers(prefs, 'supplierExpenses', 5);
+      // salesExpensesControllers = _loadControllers(prefs, 'salesExpenses', 5);
+    });
+  }
+
+  List<List<TextEditingController>> _loadControllers(
+      SharedPreferences prefs, String key, int columns) {
+    List<String>? data = prefs.getStringList(key);
+    if (data != null) {
+      return data.map((row) {
+        List<String> cells = jsonDecode(row).cast<String>();
+        return cells.map((cell) => TextEditingController(text: cell)).toList();
+      }).toList();
+    }
+    return List.generate(1,
+        (index) => List.generate(columns, (index) => TextEditingController()));
+  }
+
+  void _saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setStringList(
+        'fixedExpenses', _saveControllers(fixedExpensesControllers));
+    await prefs.setStringList(
+        'variableExpenses', _saveControllers(variableExpensesControllers));
+    await prefs.setStringList('savings', _saveControllers(savingsControllers));
+    await prefs.setStringList(
+        'supplierExpenses', _saveControllers(supplierExpensesControllers));
+    // await prefs.setStringList(
+    // 'salesExpenses', _saveControllers(salesExpensesControllers));
+  }
+
+  List<String> _saveControllers(List<List<TextEditingController>> controllers) {
+    return controllers.map((row) {
+      List<String> cells = row.map((controller) => controller.text).toList();
+      return jsonEncode(cells);
+    }).toList();
+  }
+
+  void addRow(
+      List<List<TextEditingController>> controllers, int numberOfColumns) {
+    setState(() {
+      controllers.add(
+          List.generate(numberOfColumns, (index) => TextEditingController()));
+    });
+  }
+
+  void removeRow(List<List<TextEditingController>> controllers, int rowIndex) {
+    setState(() {
+      controllers[rowIndex].forEach((controller) => controller.dispose());
+      controllers.removeAt(rowIndex);
+    });
+  }
+
+  // Dispose
+
+  @override
+  void dispose() {
+    fixedExpensesControllers
+        .forEach((row) => row.forEach((controller) => controller.dispose()));
+    variableExpensesControllers
+        .forEach((row) => row.forEach((controller) => controller.dispose()));
+    savingsControllers
+        .forEach((row) => row.forEach((controller) => controller.dispose()));
+    supplierExpensesControllers
+        .forEach((row) => row.forEach((controller) => controller.dispose()));
+    // salesExpensesControllers
+    // .forEach((row) => row.forEach((controller) => controller.dispose()));
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,64 +160,56 @@ class _BudgetTableProState extends State<BudgetTablePro> {
               }),
             ),
             SizedBox(height: 16),
-            _buildSectionTitle('Charges d\'exploitation - Fournisseurs'),
-            _buildTable(
-              headers: ['Nom', 'Produits fournis', 'Date', 'Prix XOF'],
-              rows: [
-                ['Mme Diop', 'Savon', '23-06-24', '300.000'],
-                ['M. Kablan', 'Emballage', '23-06-24', '30.000'],
-              ],
+            _buildSection(
+              title: "Charges d'exploitation - Fournisseurs",
+              headers: ['Nom', 'Produits fournis', 'Date', 'Prix XOF', ''],
+              controllers: fixedExpensesControllers,
+              columns: 4,
             ),
-            SizedBox(height: 16),
-            _buildSectionTitle('Charges d\'exploitation - Produits en Vente'),
-            _buildTable(
+            _buildSection(
+              title: "Charges d'exploitation - Produits en Vente",
               headers: [
-                'Produit',
+                'Produits',
                 'Quantités en stock',
-                'Prix d\'achat',
+                "Prix d'achat",
                 'Prix de vente',
-                'Bénéfice Attendu'
+                'Bénéfice Attendu',
+                ''
               ],
-              rows: [
-                ['Savon Teint Clair', '30', '', '15.000', '150.000'],
-                ['Savon Teint Métisse', '12', '', '35.000', '120.000'],
-              ],
+              controllers: variableExpensesControllers,
+              columns: 5,
             ),
-            SizedBox(height: 16),
-            _buildSectionTitle('Recettes - Ventes en une fois'),
-            _buildTable(
-              headers: ['Nom du Produit', 'Réduction', 'Prix final', 'Date'],
-              rows: [
-                ['Savon Teint Clair', '10%', '13.500', '05-06-2024'],
-                ['Savon Teint Métisse', '10%', '31.500', '06-06-2024'],
-              ],
-            ),
-            SizedBox(height: 16),
-            _buildSectionTitle('Recettes - Ventes en plusieurs fois'),
-            _buildTable(
+            _buildSection(
+              title: 'Recettes - Ventes en une fois',
               headers: [
                 'Nom du Produit',
-                'Nom du client',
+                'Réduction',
+                'Prix final',
+                'Date',
+                ''
+              ],
+              controllers: savingsControllers,
+              columns: 4,
+            ),
+            _buildSection(
+              title: 'Recettes - Ventes en plusieurs fois',
+              headers: [
+                'Nom du Produit',
+                'Nom du Client',
                 'Avance',
                 'Date',
-                'Soldé'
+                'soldé',
+                ''
               ],
-              rows: [
-                [
-                  'Savon Teint Métisse',
-                  'Mlle. Marie-Paul Nassa',
-                  '20.000',
-                  '15-06-24',
-                  'Non'
-                ],
-                [
-                  'Savon Teint Métisse',
-                  'Mlle. Ezékiel Astride',
-                  '12.000',
-                  '23-06-24',
-                  'Non'
-                ],
-              ],
+              controllers: supplierExpensesControllers,
+              columns: 5,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: _saveData,
+                child: Text('Valider'),
+              ),
             ),
           ],
         ),
@@ -128,39 +217,92 @@ class _BudgetTableProState extends State<BudgetTablePro> {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  //Nouvelle fonction
+  Widget _buildSection(
+      {required String title,
+      required List<String> headers,
+      required List<List<TextEditingController>> controllers,
+      required int columns}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Text(title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: BudgetInputTable(
+              headers: headers,
+              controllers: controllers,
+              onRemoveRow: (index) => removeRow(controllers, index),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () => addRow(controllers, columns),
+            child: Text('Ajouter une ligne'),
+          ),
+        ],
+      ),
     );
   }
+}
 
-  Widget _buildTable(
-      {required List<String> headers, required List<List<String>> rows}) {
-    return Table(
-      border: TableBorder.all(color: Colors.black),
-      children: [
-        TableRow(
-          children: headers
-              .map((header) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(header,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ))
-              .toList(),
-        ),
-        ...rows
-            .map((row) => TableRow(
-                  children: row
-                      .map((cell) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(cell),
-                          ))
-                      .toList(),
-                ))
+//Nouvelles classes
+
+class BudgetInputTable extends StatelessWidget {
+  final List<String> headers;
+  final List<List<TextEditingController>> controllers;
+  final Function(int) onRemoveRow;
+
+  BudgetInputTable(
+      {required this.headers,
+      required this.controllers,
+      required this.onRemoveRow});
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      child: DataTable(
+        columnSpacing: 10.0,
+        columns: headers
+            .map((header) =>
+                DataColumn(label: Text(header, style: TextStyle(fontSize: 12))))
             .toList(),
-      ],
+        rows: List<DataRow>.generate(
+          controllers.length,
+          (index) => DataRow(
+            cells: [
+              ...controllers[index].map((controller) {
+                return DataCell(
+                  Container(
+                    width: 80,
+                    child: TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                        contentPadding: EdgeInsets.all(8.0),
+                      ),
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                );
+              }).toList(),
+              DataCell(
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => onRemoveRow(index),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
